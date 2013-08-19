@@ -1,0 +1,10 @@
+{
+	"name": "cwp/cwp-core",
+	"description": "CWP basic compatibility module. Use for migrations.",
+	"type": "silverstripe-module",
+	"require": {
+		"composer/installers": "*",
+		"silverstripe/cms": "~3.1",
+		"silverstripe/framework": "~3.1",
+	}
+}
