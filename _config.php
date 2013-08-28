@@ -95,7 +95,7 @@ $cwpEditor->setOptions(array(
 		. 'meter[form|high|low|max|min|optimum|value],'
 		. 'cite,abbr,,b,article,aside,code,col,colgroup,details[open],dfn,figure,figcaption,'
 		. 'footer,header,kbd,mark,,nav,pre,q[cite],small,summary,time[datetime],var,ol[start|type]',
-	'spellchecker_rpc_url' => THIRDPARTY_DIR . '/tinymce-spellchecker/rpc.php',
+	'browser_spellcheck' => true,
 	'theme_advanced_blockformats' => 'p,pre,address,h2,h3,h4,h5,h6'
 ));
 
@@ -111,7 +111,7 @@ $cwpEditor->enablePlugins(array(
 
 // First line:
 $cwpEditor->insertButtonsAfter('strikethrough', 'sub', 'sup');
-$cwpEditor->removeButtons('underline', 'strikethrough');
+$cwpEditor->removeButtons('underline', 'strikethrough', 'spellchecker');
 
 // Second line:
 $cwpEditor->insertButtonsBefore('formatselect', 'styleselect');
