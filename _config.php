@@ -102,7 +102,6 @@ $cwpEditor->setOptions(array(
 $cwpEditor->enablePlugins('media', 'fullscreen', 'inlinepopups');
 $cwpEditor->enablePlugins('template');
 $cwpEditor->enablePlugins('lists');
-$cwpEditor->enablePlugins('visualchars');
 $cwpEditor->enablePlugins('xhtmlxtras');
 $cwpEditor->enablePlugins(array(
 	'ssbuttons' => sprintf('../../../%s/tinymce_ssbuttons/editor_plugin_src.js', THIRDPARTY_DIR),
@@ -120,7 +119,6 @@ $cwpEditor->addButtonsToLine(2,
 	'template', 'separator', 'ssmacron'
 );
 $cwpEditor->insertButtonsAfter('pasteword', 'removeformat');
-$cwpEditor->insertButtonsAfter('selectall', 'visualchars');
 $cwpEditor->removeButtons('visualaid');
 
 // Third line:
