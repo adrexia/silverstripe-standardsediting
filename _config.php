@@ -163,3 +163,11 @@ Member::set_password_validator($pwdValidator);
 	LeftAndMain::add_extension('LoginAttemptNotifications_LeftAndMain');
 }*/
 
+// Initialise the redirection configuration if null.
+if (is_null(Config::inst()->get('CwpControllerExtension', 'ssl_redirection_force_domain'))) {
+	if (defined('CWP_SECURE_DOMAIN')) {
+		Config::inst()->update('CwpControllerExtension', 'ssl_redirection_force_domain', CWP_SECURE_DOMAIN);
+	} else {
+		Config::inst()->update('CwpControllerExtension', 'ssl_redirection_force_domain', false);
+	}
+}
