@@ -33,27 +33,7 @@ if(!defined('WKHTMLTOPDF_BINARY')) {
 	define('WKHTMLTOPDF_BINARY', '/usr/local/bin/wkhtmltopdf');
 }
 
-if(class_exists('Solr')) {
-	$extrasPath = BASE_PATH . '/mysite/conf/extras';
-	if(!file_exists($extrasPath)) {
-		$extrasPath = BASE_PATH . '/fulltextsearch/conf/extras';
-	}
-
-	Solr::configure_server(array(
-		'host' => defined('SOLR_SERVER') ? SOLR_SERVER : 'localhost',
-		'port' => defined('SOLR_PORT') ? SOLR_PORT : 8983,
-		'path' => defined('SOLR_PATH') ? SOLR_PATH : '/solr/',
-		'indexstore' => array(
-			'mode' => defined('SOLR_MODE') ? SOLR_MODE : 'file',
-			'auth' => defined('SOLR_AUTH') ? SOLR_AUTH : NULL,
-			// Allow storing the solr index and config data in an arbitrary location,
-			// e.g. outside of the webroot
-			'path' => defined('SOLR_INDEXSTORE_PATH') ? SOLR_INDEXSTORE_PATH : BASE_PATH . '/.solr',
-			'remotepath' => defined('SOLR_REMOTE_PATH') ? SOLR_REMOTE_PATH : null
-		),
-		'extraspath' => $extrasPath
-	));
-}
+CwpSolr::configure();
 
 // TinyMCE configuration
 $cwpEditor = HtmlEditorConfig::get('cwp');
