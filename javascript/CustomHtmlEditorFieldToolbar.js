@@ -46,7 +46,7 @@
 						// Ask the user to confirm proceeding.
 						var response = confirm(
 							ss.i18n.sprintf(
-								ss.i18n._t('CWP.SPECIFYALTTEXT'),
+								ss.i18n._t('STANDARDS.SPECIFYALTTEXT'),
 								$.trim(self.find('.ss-uploadfield-item-name span').html())
 							)
 						);

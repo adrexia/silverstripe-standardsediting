@@ -4,6 +4,6 @@ if(typeof(ss) == 'undefined' || typeof(ss.i18n) == 'undefined') {
 	if(typeof(console) != 'undefined') console.error('Class ss.i18n not defined');
 } else {
 	ss.i18n.addDictionary('mi', {
-    "CWP.SPECIFYALTTEXT": "Kāore i a %s he tuhinga whirinoa ka hiahiatia mō ngā atahanga whakapaipai-kore.\n\nMe whakahou tonu?"
+    "STANDARDS.SPECIFYALTTEXT": "Kāore i a %s he tuhinga whirinoa ka hiahiatia mō ngā atahanga whakapaipai-kore.\n\nMe whakahou tonu?"
 });
 }

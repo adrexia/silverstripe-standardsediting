@@ -1,46 +1,11 @@
 <?php
 
-## General CWP configuration
-
-## More configuration is applied in cwp/_config/config.yml for APIs that use
-## {@link Config} instead of setting statics directly.
-
-## NOTE: Put your custom site configuration into mysite/_config/config.yml
-## and if absolutely necessary if you can't use the yml file, mysite/_config.php instead.
-
-// configure document converter.
-if (class_exists('DocumentConverterDecorator') && defined('DOCVERT_USERNAME')) {
-	DocumentImportIFrameField_Importer::set_docvert_username(DOCVERT_USERNAME);
-	DocumentImportIFrameField_Importer::set_docvert_password(DOCVERT_PASSWORD);
-	DocumentImportIFrameField_Importer::set_docvert_url(DOCVERT_URL);
-	Page::add_extension('DocumentConverterDecorator');
-}
-
-// Default translations
-if (class_exists('Translatable')) {
-	Translatable::set_default_locale('en_NZ');
-	SiteTree::add_extension('Translatable');
-	SiteConfig::add_extension('Translatable');
-}
-
-// set the system locale to en_GB. This also means locale dropdowns
-// and date formatting etc will default to this locale. Note there is no
-// English (New Zealand) option
-i18n::set_locale('en_GB');
-
-// default to the binary being in the usual path on Linux
-if(!defined('WKHTMLTOPDF_BINARY')) {
-	define('WKHTMLTOPDF_BINARY', '/usr/local/bin/wkhtmltopdf');
-}
-
-CwpSolr::configure();
-
 // TinyMCE configuration
-$cwpEditor = HtmlEditorConfig::get('cwp');
+$standardsEditor = HtmlEditorConfig::get('standards');
 
 // Start with the same configuration as 'cms' config (defined in framework/admin/_config.php).
-$cwpEditor->setOptions(array(
-	'friendly_name' => 'Default CWP',
+$standardsEditor->setOptions(array(
+	'friendly_name' => 'Default Standards',
 	'priority' => '60',
 	'mode' => 'none',
 
@@ -79,75 +44,30 @@ $cwpEditor->setOptions(array(
 	'theme_advanced_blockformats' => 'p,pre,address,h2,h3,h4,h5,h6'
 ));
 
-$cwpEditor->enablePlugins('media', 'fullscreen', 'inlinepopups');
-$cwpEditor->enablePlugins('template');
-$cwpEditor->enablePlugins('lists');
-$cwpEditor->enablePlugins('visualchars');
-$cwpEditor->enablePlugins('xhtmlxtras');
-$cwpEditor->enablePlugins(array(
+$standardsEditor->enablePlugins('media', 'fullscreen', 'inlinepopups');
+$standardsEditor->enablePlugins('template');
+$standardsEditor->enablePlugins('lists');
+$standardsEditor->enablePlugins('visualchars');
+$standardsEditor->enablePlugins('xhtmlxtras');
+$standardsEditor->enablePlugins(array(
 	'ssbuttons' => sprintf('../../../%s/tinymce_ssbuttons/editor_plugin_src.js', THIRDPARTY_DIR),
 	'ssmacron' => sprintf('../../../%s/tinymce_ssmacron/editor_plugin_src.js', THIRDPARTY_DIR)
 ));
 
 // First line:
-$cwpEditor->insertButtonsAfter('strikethrough', 'sub', 'sup');
-$cwpEditor->removeButtons('underline', 'strikethrough', 'spellchecker');
+$standardsEditor->insertButtonsAfter('strikethrough', 'sub', 'sup');
+$standardsEditor->removeButtons('underline', 'strikethrough', 'spellchecker');
 
 // Second line:
-$cwpEditor->insertButtonsBefore('formatselect', 'styleselect');
-$cwpEditor->addButtonsToLine(2,
+$standardsEditor->insertButtonsBefore('formatselect', 'styleselect');
+$standardsEditor->addButtonsToLine(2,
 	'ssmedia', 'sslink', 'unlink', 'anchor', 'separator','code', 'fullscreen', 'separator',
 	'template', 'separator', 'ssmacron'
 );
-$cwpEditor->insertButtonsAfter('pasteword', 'removeformat');
-$cwpEditor->insertButtonsAfter('selectall', 'visualchars');
-$cwpEditor->removeButtons('visualaid');
+$standardsEditor->insertButtonsAfter('pasteword', 'removeformat');
+$standardsEditor->insertButtonsAfter('selectall', 'visualchars');
+$standardsEditor->removeButtons('visualaid');
 
 // Third line:
-$cwpEditor->removeButtons('tablecontrols');
-$cwpEditor->addButtonsToLine(3, 'cite', 'abbr', 'ins', 'del', 'separator', 'tablecontrols');
-
-// CwpLogger configuration for capturing administrative actions
-
-// don't set up auth log writing in the command line, since it fills the logs with output
-// from unit tests, etc. It's designed to log actions from web requests only.
-// See {@link CwpLoggerTest} to see how this is tested with a test log writer
-if(!Director::is_cli()) {
-	$logFileWriter = new SS_SysLogWriter('SilverStripe', null, LOG_AUTH);
-	$logFileWriter->setFormatter(new CwpLoggerFormatter());
-	SS_Log::add_writer($logFileWriter, CwpLogger::PRIORITY, '=');
-}
-
-// CwpLogger implements hooks in the core to capture events, such as
-// when a user logs in and out, publishes a page, add/remove member from group etc.
-MemberLoginForm::add_extension('CwpLogger');
-RequestHandler::add_extension('CwpLogger');
-Controller::add_extension('CwpLogger');
-Member::add_extension('CwpLogger');
-SiteTree::add_extension('CwpLogger');
-
-// override ManyManyList so that we can log particular relational changes
-// such as when a Member is added to a Group or removed from it.
-Object::useCustomClass('ManyManyList', 'CwpLoggerManyManyList', true);
-Object::useCustomClass('Member_GroupSet', 'CwpLoggerMemberGroupSet', true);
-
-// Configure password strength requirements
-$pwdValidator = new PasswordValidator();
-$pwdValidator->minLength(8);
-$pwdValidator->checkHistoricalPasswords(6);
-$pwdValidator->characterStrength(3, array("lowercase", "uppercase", "digits", "punctuation"));
-Member::set_password_validator($pwdValidator);
-
-// Disable the feature. LoginAttempt seems to be broken on bridging solution - logs every request instead of logins!
-/*if (class_exists('LoginAttemptNotifications_LeftAndMain')) {
-	LeftAndMain::add_extension('LoginAttemptNotifications_LeftAndMain');
-}*/
-
-// Initialise the redirection configuration if null.
-if (is_null(Config::inst()->get('CwpControllerExtension', 'ssl_redirection_force_domain'))) {
-	if (defined('CWP_SECURE_DOMAIN')) {
-		Config::inst()->update('CwpControllerExtension', 'ssl_redirection_force_domain', CWP_SECURE_DOMAIN);
-	} else {
-		Config::inst()->update('CwpControllerExtension', 'ssl_redirection_force_domain', false);
-	}
-}
+$standardsEditor->removeButtons('tablecontrols');
+$standardsEditor->addButtonsToLine(3, 'cite', 'abbr', 'ins', 'del', 'separator', 'tablecontrols');

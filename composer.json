@@ -1,10 +1,13 @@
 {
-	"name": "cwp/cwp-core",
-	"description": "CWP basic compatibility module. Use for migrations.",
-	"type": "silverstripe-module",
-	"require": {
-		"composer/installers": "*",
-		"silverstripe/cms": "~3.1",
-		"silverstripe/framework": "~3.1"
-	}
+    "name": "adrexia/standardsediting",
+    "description": "Extensions to provide standards based editing for Silverstripe",
+    "type": "silverstripe-module",
+    "keywords": ["silverstripe"],
+    "license": "BSD-3-Clause",
+    "require":
+    {
+            "silverstripe/framework": "~3.1",
+            "silverstripe/cms": "~3.1",
+            "silverstripe/html5": "*"
+    }
 }
