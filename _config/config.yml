@@ -11,5 +11,3 @@ Group:
 HtmlEditorField_Toolbar:
   extensions:
    - CustomHtmlEditorFieldToolbar
-HtmlEditorField:
-  sanitise_server_side: true
