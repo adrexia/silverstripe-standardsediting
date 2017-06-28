@@ -6,7 +6,7 @@
     "license": "BSD-3-Clause",
     "require":
     {
-        "silverstripe/admin": "^4"
+        "silverstripe/admin": "^1@dev"
     },
     "conflict": {
         "cwp/cwp-core": "*"
