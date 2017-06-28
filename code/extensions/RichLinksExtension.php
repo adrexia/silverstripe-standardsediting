@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Assets\File;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Core\Extension;
 /**
  * Adds capability to augment links with extra attributes and meta information.
  *
@@ -25,7 +29,7 @@ class RichLinksExtension extends Extension {
 
 		// Attach the file type and size to each of the links.
 		for ($i = 0; $i < count($matches[0]); $i++){
-			$file = DataObject::get_by_id('File', $matches[1][$i]);
+			$file = DataObject::get_by_id(File::class, $matches[1][$i]);
 			if ($file) {
 				$size = $file->getSize();
 				$ext = strtoupper($file->getExtension());
@@ -47,4 +51,3 @@ class RichLinksExtension extends Extension {
 	}
 
 }
-

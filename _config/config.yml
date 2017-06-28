@@ -1,13 +1,6 @@
 ---
 Name: standardseditingconfig
-After: 'framework/*','cms/*'
 ---
-DBField:
+SilverStripe\ORM\FieldType\DBField:
   extensions:
-   - RichLinksExtension
-Group:
-  extensions:
-   - StandardsHtmlEditorConfig
-HtmlEditorField_Toolbar:
-  extensions:
-   - CustomHtmlEditorFieldToolbar
+    - RichLinksExtension
