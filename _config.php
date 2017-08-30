@@ -22,7 +22,7 @@ $standardsEditor = TinyMCEConfig::get('cms')->setOptions(array(
 $standardsEditor->removeButtons('underline', 'alignleft', 'alignright', 'alignjustify', 'aligncenter');
 
 // enable plugins
-$standardsEditor->enablePlugins('template', 'hr', 'charmap', 'anchor', 'wordcount');
+$standardsEditor->enablePlugins('template', 'hr', 'charmap', 'anchor', 'wordcount', 'lists');
 
 //First line:
 $standardsEditor->insertButtonsAfter('removeformat', '|', 'superscript', 'subscript', 'blockquote', 'hr');
