@@ -1,5 +1,5 @@
 {
-    "name": "silverstripe/standardsediting",
+    "name": "adrexia/standardsediting",
     "description": "Extensions to provide standards based editing for Silverstripe",
     "type": "silverstripe-module",
     "keywords": ["silverstripe"],
