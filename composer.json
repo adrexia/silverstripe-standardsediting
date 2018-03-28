@@ -1,12 +1,12 @@
 {
     "name": "adrexia/standardsediting",
     "description": "Extensions to provide standards based editing for Silverstripe",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": ["silverstripe"],
     "license": "BSD-3-Clause",
     "require":
     {
-        "silverstripe/admin": "^1@dev"
+        "silverstripe/admin": "^1"
     },
     "conflict": {
         "cwp/cwp-core": "*"
