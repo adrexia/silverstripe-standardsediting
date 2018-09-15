@@ -6,8 +6,8 @@
     "license": "BSD-3-Clause",
     "require":
     {
-            "silverstripe/framework": "3.6.*",
-            "silverstripe/cms": "3.6.*",
+            "silverstripe/framework": "^3.6",
+            "silverstripe/cms": "^3.6",
             "silverstripe/html5": "*"
     },
     "conflict": {
